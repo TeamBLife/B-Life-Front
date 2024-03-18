@@ -1,5 +1,6 @@
 import axios from "axios";
-const https = require("https")
+import https from 'node:https'
+
 
 
 export default axios.create({
