@@ -1,11 +1,7 @@
 import axios from "axios";
-import https from 'https'
 
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 export default axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
 });
