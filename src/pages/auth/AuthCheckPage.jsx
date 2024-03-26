@@ -1,7 +1,7 @@
 import authApi from "apis/AuthApi";
 import AuthLayout from "layouts/AuthLayout";
 import MainLayout from "layouts/MainLayout";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function AuthCheckPage() {

@@ -48,10 +48,6 @@ export default function BookSearchBar({ isOpen }) {
     }
   }, [debouncedValue]);
 
-  // Craete infinite Scroll
-
-  console.log(books);
-
   return (
     <>
       <div className="flex flex-row-reverse items-center my-4">
