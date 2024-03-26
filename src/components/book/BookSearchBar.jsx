@@ -59,7 +59,7 @@ export default function BookSearchBar({ isOpen }) {
           className="p-2 transition-shadow border-2 duration-300 focus:border-cyan-300 border-gray-600 rounded-lg focus:shadow-[0_0_5px_5px] focus:shadow-cyan-300 focus:outline-none dark:bg-gray-800 dark:text-white"
           onKeyDown={checkEnter}
           onChange={textChangeHandler}
-          placeholder="Search Post"
+          placeholder="Search Book Title"
           value={searchText}
         />
       </div>
@@ -73,7 +73,7 @@ export default function BookSearchBar({ isOpen }) {
             {isSearching ? "검색중..." : "검색 결과"}
           </div>
           {books?.map((book) => (
-            <BookCard key={book.isbn13 + debouncedValue} book={book} />
+            <BookCard key={book.isbn13 + book.title} book={book} />
           ))}
           {isSearching && <BookCardSkeleton />}
           {books !== undefined && books?.length !== 0 && (

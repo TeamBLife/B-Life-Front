@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function BookListWrapper({ children, isAdmin, post }) {
-  const [isOpenSearchBar, setIsOpenSearchBar] = useState(false);
+  const [isOpenSearchBar, setIsOpenSearchBar] = useState(true);
 
   return (
     <>

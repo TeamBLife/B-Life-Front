@@ -5,11 +5,14 @@ export default function InfiScrollTrigger({
   setIsSearching,
   getSearchBooks,
   searchText,
+  beforePage,
 }) {
-  const [page, setPage] = useState(1);
+  console.log("beforePage : ", beforePage);
+  const [page, setPage] = useState(beforePage || 1);
   const [ref, inView] = useInView();
   const [duringSearch, setDuringSearch] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
+  console.log("page = ", page);
 
   const searchMorePosts = async (nextPage) => {
     const result = await getSearchBooks(nextPage);

@@ -1,15 +1,32 @@
-import axios from "axios";
-import AxiosInstance from "utils/AxiosInstance";
+const { default: AxiosInstance } = require("utils/AxiosInstance");
 
-class AuthAxios {
+class AuthApi {
+  async signup(data, role) {
+    try {
+      const result = await AxiosInstance.post(
+        `/auth/signup?role=${role}`,
+        data
+      );
 
-  login() {
-    AxiosInstance.interceptors.request.use((config) => {
-      // header에 access token 담기
-    })
+      return await result.data;
+    } catch (e) {
+      Promise.reject(e);
+    }
+  }
+
+  async check(data) {
+    const result = await AxiosInstance.post("/auth/check", data);
+
+    return await result.data;
+  }
+
+  async login(data) {
+    const result = await AxiosInstance.post("/auth/login", data);
+
+    return await result.data;
   }
 }
 
-const authAxiosIns = new AuthAxios()
+const authApi = new AuthApi();
 
-export default authAxiosIns
+export default authApi;
