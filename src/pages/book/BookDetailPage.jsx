@@ -6,7 +6,7 @@ import NotFoundPage from "pages/NotFoundPage";
 import BookBox from "components/book/BookBox";
 import bookApi from "apis/BookApi";
 
-export default function BookPage() {
+export default function BookDetailPage() {
   const { isbn } = useParams();
   // const initData = useLocation().state; 데이터를 쌓기 위하여 무조건 서버 요청을 하는 방향으로 잡았다.
   const initData = null;

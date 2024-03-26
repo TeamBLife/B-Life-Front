@@ -5,7 +5,9 @@ import "./globals.css";
 import NotFoundPage from "./pages/NotFoundPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "pages/auth/SignupPage";
-import BookPage from "pages/book/BookPage";
+import BookDetailPage from "pages/book/BookDetailPage";
+import OAuthLoginPage from "pages/auth/OAuthLoginPage";
+import AuthCheckPage from "pages/auth/AuthCheckPage";
 
 function App() {
   useEffect(() => {
@@ -17,7 +19,9 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/book/:isbn" element={<BookPage />} />
+        <Route path="/book/:isbn" element={<BookDetailPage />} />
+        <Route path="/oauth2/:provider" element={<OAuthLoginPage />} />
+        <Route path="/auth/check/:email" element={<AuthCheckPage />} />
         <Route
           path="*"
           element={

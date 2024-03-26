@@ -2,22 +2,22 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthInput from "./AuthInput";
 import AuthBtn from "./AuthBtn";
-import AuthAxiosIns from "apis/AuthApi";
 import useUserStore from "store/user";
+import oAuthApi from "apis/OAuthApi";
+import authApi from "apis/AuthApi";
 
 export default function AuthFormBox({ type }) {
-  const [isAlreadyEmail, setIsAlreadyEmail] = useState(false);
   const [isAllTyped, setIsAllTyped] = useState({
     email: false,
     pw: false,
     rPw: false,
-    name: false,
+    nickname: false,
   });
   const [signupValues, setSignupValues] = useState({
     email: "",
     pw: "",
     rPw: "",
-    name: "",
+    nickname: "",
   });
   const navigate = useNavigate();
   const { setLoginUser } = useUserStore();
@@ -35,33 +35,19 @@ export default function AuthFormBox({ type }) {
     setSignupValues({ ...signupValues, [e.target.name]: e.target.value });
   };
 
-  const outFocusEmailEvent = async (e) => {
-    if (e.target.value !== "") {
-      setIsAlreadyEmail(false);
-      setIsAllTyped({ ...isAllTyped, [e.target.name]: true });
-      const result = await AuthAxiosIns.emailDupCheck({
-        email: e.target.value,
-      });
-      if (result.exist) {
-        setIsAllTyped({ ...isAllTyped, [e.target.name]: false });
-        setIsAlreadyEmail(true);
-      }
-    } else {
-      setIsAllTyped({ ...isAllTyped, [e.target.name]: false });
-    }
-    setSignupValues({ ...signupValues, [e.target.name]: e.target.value });
-  };
-
   const onClickSignUp = async () => {
     if (signupValues.pw === signupValues.rPw && !checkIsAllTyped()) {
-      const result = await AuthAxiosIns.signUp({
-        email: signupValues.email,
-        password: signupValues.pw,
-        name: signupValues.name,
-        company: signupValues.company,
-      });
-      if (result.joinResult) {
-        navigate("/login");
+      const result = await authApi.signup(
+        {
+          email: signupValues.email,
+          password: signupValues.pw,
+          nickname: signupValues.nickname,
+        },
+        "USER"
+      );
+      console.log(result);
+      if (result.status === "WAIT") {
+        navigate(`/auth/check/${result.email}`);
       }
     }
   };
@@ -72,11 +58,17 @@ export default function AuthFormBox({ type }) {
       password: signupValues.pw,
     };
 
-    const result = await AuthAxiosIns.login(loginValue);
-    if (result !== undefined) {
-      setLoginUser(result);
+    const { accessToken, nickname } = await authApi.login(loginValue);
+    if (nickname !== undefined) {
+      localStorage.setItem("accessToken", accessToken);
+      setLoginUser(nickname);
       navigate("/");
     }
+  };
+
+  const onClickOAuthLogin = async (provider) => {
+    const url = await oAuthApi.getRedirectUrl(provider);
+    window.location.href = url;
   };
 
   return (
@@ -111,9 +103,9 @@ export default function AuthFormBox({ type }) {
               />
               <AuthInput
                 outFocus={outFocusEvent}
-                key="name"
-                id="name"
-                placeholder="Name"
+                key="nickname"
+                id="nickname"
+                placeholder="nickname"
               />
             </>
           )}
@@ -141,10 +133,14 @@ export default function AuthFormBox({ type }) {
           </Link>
         </div>
       )}
-      {type === "signup" && isAlreadyEmail && (
-        <p className="text-[#FF2E2E] pt-[5px] text-[11px] md:text-[14px]">
-          Email Already Exists
-        </p>
+      {type === "login" && (
+        <button
+          onClick={() => {
+            onClickOAuthLogin("kakao");
+          }}
+        >
+          KakaoLogin
+        </button>
       )}
     </div>
   );
