@@ -5,6 +5,8 @@ import AuthBtn from "./AuthBtn";
 import useUserStore from "store/user";
 import oAuthApi from "apis/OAuthApi";
 import authApi from "apis/AuthApi";
+import RadioGroup from "components/common/RadioGroup";
+import Radio from "components/common/Radio";
 
 export default function AuthFormBox({ type }) {
   const [isAllTyped, setIsAllTyped] = useState({
@@ -21,6 +23,7 @@ export default function AuthFormBox({ type }) {
   });
   const navigate = useNavigate();
   const { setLoginUser } = useUserStore();
+  const [role, setRole] = useState("USER");
 
   const checkIsAllTyped = () => {
     return Object.values(isAllTyped).includes(false);
@@ -43,7 +46,7 @@ export default function AuthFormBox({ type }) {
           password: signupValues.pw,
           nickname: signupValues.nickname,
         },
-        "USER"
+        role
       );
       console.log(result);
       if (result.status === "WAIT") {
@@ -111,6 +114,15 @@ export default function AuthFormBox({ type }) {
           )}
         </div>
       </div>
+      {type === "signup" && (
+        <div className="py-4">
+          <RadioGroup value={role} onChange={setRole}>
+            <Radio value="OWNER">도서관</Radio>
+            <Radio value="USER">일반</Radio>
+          </RadioGroup>
+        </div>
+      )}
+
       {type === "login" ? (
         <AuthBtn onClick={onClickLogin} btnText={"LOGIN"} />
       ) : (
@@ -120,6 +132,7 @@ export default function AuthFormBox({ type }) {
           btnText={"SIGN UP"}
         />
       )}
+
       {type === "login" && (
         <div className="justify-start items-start gap-2.5 inline-flex md:pt-[40px] pt-[20px]">
           <div className="text-[11px] text-neutral-400 md:text-[17px] font-semibold font-['Pretendard'] leading-relaxed">
