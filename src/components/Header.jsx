@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { debounce } from "lodash";
-import BookSearchBar from "./book/BookSearchBar";
 import useUserStore from "store/user";
 
 function Header() {
@@ -44,7 +43,7 @@ function Header() {
         ) : (
           <div className="[&>*]:px-2">
             <Link className="dark-text" to={"/userinfo"}>
-              {user}
+              {user.nickname}
             </Link>
             <button onClick={onClickLogout} className="dark-text">
               로그아웃
