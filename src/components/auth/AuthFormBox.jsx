@@ -61,10 +61,10 @@ export default function AuthFormBox({ type }) {
       password: signupValues.pw,
     };
 
-    const { accessToken, nickname } = await authApi.login(loginValue);
+    const { accessToken, role, nickname } = await authApi.login(loginValue);
     if (nickname !== undefined) {
       localStorage.setItem("accessToken", accessToken);
-      setLoginUser(nickname);
+      setLoginUser({ nickname, role });
       navigate("/");
     }
   };

@@ -12,9 +12,13 @@ export default function OAuthLoginPage() {
 
   useEffect(() => {
     (async () => {
-      const { nickname, accessToken } = await oAuthApi.login(provider, code);
+      const { nickname, role, accessToken } = await oAuthApi.login(
+        provider,
+        code
+      );
+      console.log(role);
       localStorage.setItem("accessToken", accessToken);
-      setLoginUser(nickname);
+      setLoginUser({ nickname, role });
       navigate("/");
     })();
   }, [provider, code, setLoginUser, navigate]);
