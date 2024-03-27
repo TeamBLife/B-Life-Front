@@ -7,8 +7,6 @@ export const getBookReview = async (bookId, page = 0, size = 5) => {
         );
         return response.data;
     } catch (e) {
-        console.error(e);
-        return [];
     }
 }
 
@@ -25,7 +23,6 @@ export const createReview = async (bookId, point, comment) => {
         return response.data;
     } catch (e) {
         console.error(e);
-        return [];
     }
 }
 
@@ -38,7 +35,6 @@ export const deleteReview = async(bookReviewId) => {
         return response.data;
     } catch (e) {
         console.error(e);
-        return [];
     }
 
 }
