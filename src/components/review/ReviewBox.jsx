@@ -11,8 +11,10 @@ export default function ReviewBox({ id }) {
 
   const getBookReviews = async (page, pageSize) => {
     const data = await getBookReview(id, page - 1, pageSize);
-    setReviews(data.content);
-    setTotalPages(data.totalPages);
+    if (data !== undefined) {
+      setReviews(data.content);
+      setTotalPages(data.totalPages);
+    }
   };
 
   const addReview = (review) => {
