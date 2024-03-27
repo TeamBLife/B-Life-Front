@@ -1,10 +1,10 @@
-import BookListWrapper from "components/wrapper/BookListWrapper";
 import MainLayout from "layouts/MainLayout";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NotFoundPage from "pages/NotFoundPage";
 import BookBox from "components/book/BookBox";
 import bookApi from "apis/BookApi";
+import ReviewBox from "components/review/ReviewBox";
 
 export default function BookDetailPage() {
   const { isbn } = useParams();
@@ -25,14 +25,16 @@ export default function BookDetailPage() {
 
   return (
     <MainLayout>
-      <BookListWrapper />
-      {book !== undefined ? (
-        <BookBox book={book} />
-      ) : (
-        <NotFoundPage>
-          <h1>존재하지 않음</h1>
-        </NotFoundPage>
-      )}
+      <div className="flex flex-col items-center [&>*]:py-4">
+        {book !== undefined ? (
+          <BookBox book={book} />
+        ) : (
+          <NotFoundPage>
+            <h1>존재하지 않음</h1>
+          </NotFoundPage>
+        )}
+        <ReviewBox id={isbn} />
+      </div>
     </MainLayout>
   );
 }
