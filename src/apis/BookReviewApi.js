@@ -5,7 +5,6 @@ export const getBookReview = async (bookId, page = 0, size = 5) => {
         const response = await AxiosInstance.get(
             `/bookreviews/books/${bookId}?page=${page}&size=${size}`
         );
-        console.log(response)
         return response.data;
     } catch (e) {
         console.error(e);

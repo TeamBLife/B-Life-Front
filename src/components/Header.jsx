@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { debounce } from "lodash";
 import useUserStore from "store/user";
 
+const navItems = {
+  책: "/book",
+  도서관: "/library",
+};
+
 function Header() {
   const [navbarOption, setNavbarOption] = useState("block");
   const [curY, setCurY] = useState(0);
@@ -35,6 +40,13 @@ function Header() {
       <Link className={`NavItem font-bold dark:text-white`} to="/">
         BLife
       </Link>
+      <div className="[&>*]:px-4">
+        {Object.entries(navItems).map(([key, value]) => (
+          <Link to={value} className="dark-text" key={key}>
+            {key}
+          </Link>
+        ))}
+      </div>
       <div className="[&>*]:dark-text">
         {user === undefined ? (
           <Link to={"/login"} className="dark-text">

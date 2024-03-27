@@ -3,7 +3,7 @@ import BookSearchBar from "components/book/BookSearchBar";
 import { BsSearch } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function BookListWrapper({ children, isAdmin, post }) {
+export default function BookListWrapper({ children, post }) {
   const [isOpenSearchBar, setIsOpenSearchBar] = useState(true);
 
   return (
