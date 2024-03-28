@@ -6,18 +6,19 @@ export default function InfiScrollTrigger({
   getSearchBooks,
   searchText,
   beforePage,
+  onSetPage,
 }) {
   console.log("beforePage : ", beforePage);
-  const [page, setPage] = useState(beforePage || 1);
+  console.log("beforePage : ", searchText);
+
   const [ref, inView] = useInView();
   const [duringSearch, setDuringSearch] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
-  console.log("page = ", page);
 
   const searchMorePosts = async (nextPage) => {
     const result = await getSearchBooks(nextPage);
     setDuringSearch(false);
-    setPage(nextPage);
+    onSetPage(nextPage);
 
     if (result === 0) {
       setIsEnd(true);
@@ -26,7 +27,7 @@ export default function InfiScrollTrigger({
 
   useEffect(() => {
     if (inView) {
-      const next = page + 1;
+      const next = beforePage + 1;
       setIsSearching(true);
       setDuringSearch(true);
       searchMorePosts(next);

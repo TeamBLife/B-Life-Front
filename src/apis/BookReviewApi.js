@@ -7,6 +7,7 @@ export const getBookReview = async (bookId, page = 0, size = 5) => {
         );
         return response.data;
     } catch (e) {
+      return []
     }
 }
 
