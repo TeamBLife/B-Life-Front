@@ -32,20 +32,22 @@ export default function ReviewBox({ id }) {
   useEffect(() => {
     getBookReviews(1, 10);
   }, [id]);
-
+  console.log(reviews);
   return (
     <div className="grid w-full px-4 border-2 border-white">
       {user && <ReviewInputBox addReview={addReview} id={id} />}
-      {reviews.map((review) => (
-        <Review
-          nickname={review.nickname}
-          point={review.point}
-          key={review.id}
-          comment={review.comment}
-          reviewId={review.id}
-          onDeleteReview={onDeleteReview}
-        />
-      ))}
+      {reviews &&
+        reviews.length !== 0 &&
+        reviews.map((review) => (
+          <Review
+            nickname={review.nickname}
+            point={review.point}
+            key={review.id}
+            comment={review.comment}
+            reviewId={review.id}
+            onDeleteReview={onDeleteReview}
+          />
+        ))}
       <div className="flex justify-center items-center [&>*]:px-2 border-2 py-4">
         {Array(totalPages)
           .fill(0)

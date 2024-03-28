@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import React from "react";
 
-export default function BookCard({ book }) {
+export default function BookCard({ book, onSaveData }) {
   return (
     <Link
       to={`/book/${book.isbn13}`}
+      onClick={onSaveData}
       state={{ book: book }}
       className="grid grid-cols-2 grid-rows-2 pt-8 pb-8 mb-8 border-2 border-gray-400 md:grid-rows-1 hover:border-opacity-100 hover:border-cyan-400 dark:text-white border-opacity-70"
     >

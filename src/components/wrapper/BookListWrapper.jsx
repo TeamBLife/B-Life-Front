@@ -19,23 +19,6 @@ export default function BookListWrapper({ children, post }) {
       <div className={`${!isOpenSearchBar && "hidden"}`}>
         <BookSearchBar isPost={isOpenSearchBar} />
       </div>
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={true ? "post" : "postList"}
-          animate={{ opacity: 1, scaleY: 1 }}
-          initial={{ opacity: 0, scaleY: 2 }}
-          exit={{ opacity: 0, scaleY: 0.1 }}
-          transition={{ duration: 0.3 }}
-        >
-          {!isOpenSearchBar ? (
-            <>
-              <div className={`${isOpenSearchBar && "hidden"}`}>{children}</div>
-            </>
-          ) : (
-            <>{post}</>
-          )}
-        </motion.div>
-      </AnimatePresence>
     </>
   );
 }
