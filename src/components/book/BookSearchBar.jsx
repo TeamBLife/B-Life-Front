@@ -73,7 +73,7 @@ export default function BookSearchBar({ isOpen }) {
     const savedPage = sessionStorage.getItem("bookSearchPage");
 
     console.log(debouncedValue);
-    if (savedSearchText !== undefined) {
+    if (savedSearchText !== null) {
       setBooks(JSON.parse(savedData));
       setSearchText(savedSearchText);
       setPage(toInteger(savedPage));
