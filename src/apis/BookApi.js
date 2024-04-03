@@ -19,6 +19,18 @@ class BookApi {
       return await response.data;
     } catch (e) {}
   }
+
+  async getPopularBookList() {
+    const response = await AxiosInstance.get(`/books/popular`);
+
+    const data = await response.data
+
+    console.log("data = ", data)
+    console.log(response.status)
+    console.log(response)
+    
+    return await response.data;
+  }
 }
 
 const bookApi = new BookApi();

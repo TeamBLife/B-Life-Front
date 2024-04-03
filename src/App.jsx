@@ -9,6 +9,7 @@ import BookDetailPage from "pages/book/BookDetailPage";
 import OAuthLoginPage from "pages/auth/OAuthLoginPage";
 import AuthCheckPage from "pages/auth/AuthCheckPage";
 import BookSearchPage from "pages/book/BookSearchPage";
+import NotSupportPage from "pages/NotSupportPage";
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,8 @@ function App() {
         <Route path="/book" element={<BookSearchPage />} />
         <Route path="/oauth2/:provider" element={<OAuthLoginPage />} />
         <Route path="/auth/check/:email" element={<AuthCheckPage />} />
+        <Route path="/userinfo" element={<NotSupportPage />} />
+        <Route path="/library" element={<NotSupportPage />} />
         <Route
           path="*"
           element={

@@ -8,6 +8,8 @@ export default function ReviewBox({ id }) {
   const [reviews, setReviews] = useState([]);
   const [totalPages, setTotalPages] = useState();
   const { user } = useUserStore();
+  const [page, setPage] = useState(1);
+  const [update, setUpdate] = useState();
 
   const getBookReviews = async (page, pageSize) => {
     const data = await getBookReview(id, page - 1, pageSize);
@@ -18,9 +20,11 @@ export default function ReviewBox({ id }) {
   };
 
   const addReview = (review) => {
-    if (reviews.length < 10) {
-      setReviews([...reviews, review]);
-    }
+    reviews !== undefined && reviews.length < 10
+      ? setReviews([...reviews, review])
+      : setReviews([review]);
+
+    setUpdate(review);
   };
 
   const onDeleteReview = (removeId) => {
@@ -29,9 +33,13 @@ export default function ReviewBox({ id }) {
     });
   };
 
+  const onClickPage = (clikcedPage) => {
+    setPage(clikcedPage);
+  };
+
   useEffect(() => {
-    getBookReviews(1, 10);
-  }, [id]);
+    getBookReviews(page, 10);
+  }, [page, update]);
   console.log(reviews);
   return (
     <div className="grid w-full px-4 border-2 border-white">
@@ -52,7 +60,13 @@ export default function ReviewBox({ id }) {
         {Array(totalPages)
           .fill(0)
           .map((item, index) => (
-            <button key={`review${index + 1}`} className="dark-text">
+            <button
+              key={`review${index + 1}`}
+              onClick={() => {
+                onClickPage(index + 1);
+              }}
+              className="dark-text"
+            >
               {index + 1}
             </button>
           ))}

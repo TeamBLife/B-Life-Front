@@ -21,7 +21,7 @@ export default function BookCard({ book, onSaveData }) {
       <div className="flex flex-col justify-between md:h-[240px] overflow-hidden ">
         <div className="flex flex-col justify-between px-4 pb-4 md:flex-row">
           <h1 className="text-lg font-bold md:text-2xl">{book.title}</h1>
-          <h4 className="">{book.publicationDate}</h4>
+          <h4 className="">{book.publicationDate.slice(0, 10)}</h4>
         </div>
         <div className="hidden row-start-2 pr-4 md:block">
           {(book.description?.length ?? 0) > 150
